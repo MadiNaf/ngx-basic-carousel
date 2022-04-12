@@ -1,6 +1,4 @@
  #carousel {
-  width: 100%;
-  height: 100%;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -44,7 +42,7 @@
   margin: 0 12px;
 }
 
-#carousel  .active-dot { background-color: $primary-200; }
+#carousel  .active-dot { background-color: black }
 #carousel  .inactive-dot { background-color: #FFF; }
 
 #carousel .center-container {
