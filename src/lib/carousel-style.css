@@ -1,0 +1,133 @@
+ #carousel {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+#carousel .container {
+  width: 100%;
+  height: 100%;
+}
+
+#carousel .carousel-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.img-section,
+.img-section img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.controller-section {
+  position: absolute;
+  align-items: flex-start;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 40px;
+}
+
+.controller-section  .circle {
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  cursor: pointer;
+  margin: 0 12px;
+}
+
+#carousel  .active-dot { background-color: $primary-200; }
+#carousel  .inactive-dot { background-color: #FFF; }
+
+#carousel .center-container {
+  /* position: absolute; */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+ 
+  /* set up */
+.current-item {
+  display: block;
+  left: 0px;
+}
+
+.prev-item {
+  display: block;
+  left: -100%;
+}
+
+.next-item {
+  display: block;
+  left: 100%;
+  opacity: 0;
+}
+
+.other-item {
+  display: none;
+}
+
+/* ------------ Flexbox ------------ */
+.d-flex { display: flex;}
+
+.justify-content-center { justify-content: center;}
+
+.align-center { align-items: center;}
+ 
+/* ------------ Animation ------------ */
+.to-right {
+  animation: toRight 0.5s ease-in-out forwards;
+}
+.to-left {
+  animation: toLeft 0.5s ease-in-out forwards;
+}
+.from-right {
+  animation: fromRight 0.5s ease-in-out forwards;
+}
+.from-left {
+  animation: fromLeft 0.5s ease-in-out forwards;
+}
+ 
+ /* De la position courante vers la droite */
+@keyframes toRight {
+  0% { left: 0; }
+  100% { left: 100%; }
+}
+ 
+ /* De la position courante vers la gauche */
+@keyframes toLeft {
+  0% {
+    left: 0;
+    opacity: 1;
+  }
+  100% {
+    left: -100%;
+  }
+}
+ 
+ /* Droite vers la centre */
+@keyframes fromRight {
+  0% {
+    left: 100%;
+    opacity: 1;
+  }
+  100% {
+    left: 0;
+    opacity: 1;
+  }
+}
+ 
+ /* Gauche vers le centre */
+@keyframes fromLeft {
+  0% { right: -100%; }
+  100% { left: 0; }
+}

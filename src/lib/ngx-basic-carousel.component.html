@@ -1,0 +1,25 @@
+<div id="carousel">
+  <p>Carousel works</p>
+  <div class="center-container d-flex justify-content-center align-center">
+    <div class="container">
+        <!-- Contenue du carousel -->
+        <div class="carousel-container">
+            <!-- Image du carousle -->
+            <!-- <section class="img-section" *ngFor="let image of carousel" [ngClass]="image.cssClass + ' ' + image.animationCss">
+              <img [src]="image.src" (click)="openLinkInNewTab(image.url)" [ngClass]="[image.url ? 'pointer' : '']" />
+            </section> -->
+ 
+            <!-- Les circles de navigation -->
+            <section class="controller-section d-flex justify-content-center align-start ">
+              <ng-container *ngFor="let item of slides; let i = index">
+                <div class="circle"  (click)="handleDotClick(i)"></div>
+              </ng-container>
+            </section>
+        </div>
+ 
+    </div>
+  </div>
+</div>
+
+<!-- <div class="circle" [ngClass]=" i === dotPosition ? 'active-dot' : 'inactive-dot'"  (click)="handleDotClick(i)"></div> -->
+
