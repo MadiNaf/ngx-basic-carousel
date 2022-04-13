@@ -2,8 +2,6 @@
 
 # About
 
-
-
 This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.3.0.
 
 This is a package for a carousel on Angular..
@@ -39,8 +37,6 @@ export class AppModule {}
 
 ### Attributes
 
-
-
 ##### Basic options
 
 | Input    | Type       | Description                      | Default value |
@@ -59,8 +55,6 @@ example:
                         height="1080px"></lib-ngx-basic-carousel>
 ```
 
-
-
 ##### Dots customisation
 
 | Input            | Type      | Description              | Default value |
@@ -68,8 +62,6 @@ example:
 | showDots         | `boolean` | Display dots navigation. | `true`        |
 | activeDotColor   | `string`  | Active dot color .       | `#000`        |
 | inactiveDotColor | `string`  | Inactive dot color.      | `#fff`        |
-
-
 
 ### Type reference
 
