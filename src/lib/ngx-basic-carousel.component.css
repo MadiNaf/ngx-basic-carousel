@@ -4,12 +4,12 @@
   box-sizing: border-box;
 }
 
-#carousel .container {
+.container {
   width: 100%;
   height: 100%;
 }
 
-#carousel .carousel-container {
+.carousel-container {
   position: relative;
   width: 100%;
   height: 100%;
@@ -41,9 +41,6 @@
   cursor: pointer;
   margin: 0 12px;
 }
-
-/* #carousel  .active-dot { background-color: black }
-#carousel  .inactive-dot { background-color: #FFF; } */
 
 #carousel .center-container {
   /* position: absolute; */
