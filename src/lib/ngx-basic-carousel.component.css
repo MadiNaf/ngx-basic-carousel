@@ -42,8 +42,8 @@
   margin: 0 12px;
 }
 
-#carousel  .active-dot { background-color: black }
-#carousel  .inactive-dot { background-color: #FFF; }
+/* #carousel  .active-dot { background-color: black }
+#carousel  .inactive-dot { background-color: #FFF; } */
 
 #carousel .center-container {
   /* position: absolute; */

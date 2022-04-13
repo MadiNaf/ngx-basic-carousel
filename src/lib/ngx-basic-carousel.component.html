@@ -11,7 +11,10 @@
             <!-- Les circles de navigation -->
             <section class="controller-section d-flex justify-content-center align-start ">
               <ng-container *ngFor="let item of slides; let i = index">
-                <div class="circle" [ngClass]=" i === dotPosition ? 'active-dot' : 'inactive-dot'"  (click)="handleDotClick(i)"></div>
+                <div class="circle"
+                    [ngClass]="i === dotPosition ? '' : ''"
+                    [style.backgroundColor]="i === dotPosition ? activeDotColor : inactiveDotColor"
+                    (click)="handleDotClick(i)"></div>
               </ng-container>
             </section>
         </div>

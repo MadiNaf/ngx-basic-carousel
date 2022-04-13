@@ -14,6 +14,11 @@ export class NgxBasicCarouselComponent implements OnInit {
   @Input('interval') interval: number = 3000;
   @Input('width') width: string = '650px';
   @Input('height') height: string = '327px';
+
+  // dots customisation
+  @Input('hideDots') hiddeDots: boolean = false;
+  @Input('activeDotColor') activeDotColor?: string = '#000'
+  @Input('inactiveDotColor') inactiveDotColor?: string = '#fff'
  
   public currentElement?: CarouselItem; // L'élement courant
   public prevElement?: CarouselItem; //  Elément précedent (si retour en arrière)
@@ -33,6 +38,7 @@ export class NgxBasicCarouselComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    // dots default value
     this.buildAndStart();
   }
 
