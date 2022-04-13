@@ -33,8 +33,6 @@ export class AppModule {}
 
 ## Usage
 
----
-
 ```html
 <lib-ngx-basic-carousel></lib-ngx-basic-carousel>
 ```
@@ -52,7 +50,7 @@ export class AppModule {}
 | width    | `string`   | width value in `px`.             | `650px`       |
 | height   | `string`   | height value in `px`.            | `327px`       |
 
-exemple:
+example:
 
 ```html
 <lib-ngx-basic-carousel [slides]="mySlides"
