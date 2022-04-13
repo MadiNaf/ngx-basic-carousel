@@ -1,20 +1,12 @@
 # NgxBasicCarousel
 
----
-
 # About
-
----
 
 
 
 This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.3.0.
 
 This is a package for a carousel on Angular..
-
-
-
----
 
 ## Install
 
@@ -53,12 +45,12 @@ export class AppModule {}
 
 ##### Basic options
 
-| Input    | Type       | Description                    | Default value |
-| -------- | ---------- | ------------------------------ | ------------- |
-| slides   | `Slide []` | An array of Slide              | `[ ]`         |
-| interval | `number`   | Loop interval in milliseconds. | `3000`        |
-| width    | `string`   | width value in `px`            | `650px`       |
-| height   | `string`   | height value in `px`           | `327px`       |
+| Input    | Type       | Description                      | Default value |
+| -------- | ---------- | -------------------------------- | ------------- |
+| slides   | `Slide []` | An array of [Slide](#slideType). | `[ ]`         |
+| interval | `number`   | Loop interval in milliseconds.   | `3000`        |
+| width    | `string`   | width value in `px`.             | `650px`       |
+| height   | `string`   | height value in `px`.            | `327px`       |
 
 exemple:
 
@@ -73,19 +65,26 @@ exemple:
 
 ##### Dots customisation
 
-| Input            | Type      | Description             | Default value |
-| ---------------- | --------- | ----------------------- | ------------- |
-| showDots         | `boolean` | Display dots navigation | `true`        |
-| activeDotColor   | `string`  | Active dot color        | `#000`        |
-| inactiveDotColor | `string`  | Inactive dot color      | `#fff`        |
+| Input            | Type      | Description              | Default value |
+| ---------------- | --------- | ------------------------ | ------------- |
+| showDots         | `boolean` | Display dots navigation. | `true`        |
+| activeDotColor   | `string`  | Active dot color .       | `#000`        |
+| inactiveDotColor | `string`  | Inactive dot color.      | `#fff`        |
 
 
 
 ### Type reference
 
+<a name="slideType">Slide</a>
+
 ```ts
 interface Slide {
-  image: string; // image url
+  image: string;
   targetLink: string;
 }
 ```
+
+| Property   | Type     | Description                                                                                      |
+| ---------- | -------- | ------------------------------------------------------------------------------------------------ |
+| image      | `string` | Image url.                                                                                       |
+| targetLink | `string` | Redirection link if the slide is clickable, if there is no link the slide will not be clickable. |
