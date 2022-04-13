@@ -38,13 +38,15 @@ export class NgxBasicCarouselComponent implements OnInit {
     this.buildAndStart();
   }
 
-  // *********************** Récupération et construction des données *********************************
+  // *********************** Création de l'objet CarouselItem *********************************
   
   private transformSlidesToCarouselItem(slides: Slide[]): Promise<void> {
     return new Promise((resolve, reject) => {
+      let idx = 0;
       if (Array.isArray(slides) && slides.length) {
         this.carousel = this.slides.map(slide => {
-          return {...slide, cssClass: this.defaultCssClass, isActive: false, animation:'' }});
+          idx++;
+          return {...slide, id: `s${idx}`, cssClass: this.defaultCssClass, isActive: false, animation:'' }});
         resolve();
       } else {
         reject();
@@ -80,12 +82,15 @@ export class NgxBasicCarouselComponent implements OnInit {
    */
   public setupCssClass(prevSlide: CarouselItem, currentSlide: CarouselItem, nextSlide: CarouselItem): void {
     this.carousel = this.carousel.map(item => {
-      if(currentSlide && item.image === currentSlide.image) {
+      if(currentSlide && item.id === currentSlide.id) {
         return { ...item, cssClass: `${this.defaultCssClass} current-item`, isActive: true, animation: '' };
-      } else if (nextSlide && item.image === nextSlide.image) {
+
+      } else if (nextSlide && item.id === nextSlide.id) {
         return { ...item, cssClass: `${this.defaultCssClass} next-item`, isActive: false, animation: '' };
-      } else if (prevSlide && item.image === prevSlide.image) {
+
+      } else if (prevSlide && item.id === prevSlide.id) {
         return { ...item, cssClass: `${this.defaultCssClass} prev-item`, isActive: false, animation: '' };
+
       } else {
         return { ...item, cssClass: `${this.defaultCssClass} other-item`, isActive: false, animation: '' };
       }
@@ -148,7 +153,7 @@ export class NgxBasicCarouselComponent implements OnInit {
   private async updateAfterAnimation(newPosition: number): Promise<void> {
     this.currentPosition = newPosition;
     const {currentSlide, prevSlide, nextSlide} = await this.sortElementPosition();
-    this.setupCssClass(currentSlide, prevSlide, nextSlide);
+    this.setupCssClass(prevSlide, currentSlide, nextSlide);
     this.isAnimation = false;
   }
     
@@ -209,7 +214,7 @@ export class NgxBasicCarouselComponent implements OnInit {
       const currentSlide = this.carousel[this.dotPosition];
       const nextSlide = this.carousel[targetPosition];
       const prevSlide = this.carousel[prevPosition];
-      this.setupCssClass(currentSlide, prevSlide, nextSlide);
+      this.setupCssClass(prevSlide, currentSlide, nextSlide);
       this.toLeftFromRight(this.dotPosition, targetPosition).then(() => {
         this.updateAfterAnimation(targetPosition);
         this.intervalId = null;
@@ -219,12 +224,12 @@ export class NgxBasicCarouselComponent implements OnInit {
     } else if (this.dotPosition > targetPosition) {
       const nextPosition = targetPosition === (this.nbImages - 1) ? 0 : targetPosition + 1;
       const nextSlide = (nextPosition === targetPosition) || (nextPosition === this.dotPosition)
-                        ? { image: 'string', targetLink: 'string', cssClass: '', isActive: false, animation: ''}
+                        ? { id: '', image: '', targetLink: '', cssClass: '', isActive: false, animation: ''}
                         : this.carousel[nextPosition];
     
       const currentSlide = this.carousel[this.dotPosition];
       const prevSlide = this.carousel[targetPosition];
-      this.setupCssClass(currentSlide, prevSlide, nextSlide);
+      this.setupCssClass( prevSlide, currentSlide, nextSlide);
       this.toRightFromLeft(this.dotPosition, targetPosition).then(() => {
         this.updateAfterAnimation(targetPosition);
         this.intervalId = null;
