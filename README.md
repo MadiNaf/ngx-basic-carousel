@@ -16,13 +16,13 @@ In your app.module.ts file
 
 ```ts
 // ...
-import{ NgxBasicCarousel } from 'ngx-basic-carousel'
+import { NgxBasicCarouselModule } from 'ngx-basic-carousel';
 
 @NgModule({
   // ...
   imports: [
     // ...
-    NgxBasicCarousel,
+    NgxBasicCarouselModule,
     // ...
   ]
 })
@@ -41,7 +41,7 @@ export class AppModule {}
 
 | Input    | Type       | Description                      | Default value |
 | -------- | ---------- | -------------------------------- | ------------- |
-| slides   | `Slide []` | An array of [Slide](#slideType). | `[ ]`         |
+| slides   | `Slide []` | An array of [Slide](#slideType). | `[]`         |
 | interval | `number`   | Loop interval in milliseconds.   | `3000`        |
 | width    | `string`   | width value in `px`.             | `650px`       |
 | height   | `string`   | height value in `px`.            | `327px`       |
