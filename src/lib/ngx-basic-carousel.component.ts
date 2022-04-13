@@ -2,13 +2,11 @@ import { Input } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import CarouselItem from './models/carousel-item';
 import Slide from './models/slide.model';
-import { map } from 'rxjs/operators';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'lib-ngx-basic-carousel',
   templateUrl: './ngx-basic-carousel.component.html', 
-  styleUrls: ['ngx-basic-carousel.component.scss']
+  styleUrls: ['ngx-basic-carousel.component.css']
 })
 export class NgxBasicCarouselComponent implements OnInit {
 
@@ -42,11 +40,12 @@ export class NgxBasicCarouselComponent implements OnInit {
   
   private transformSlidesToCarouselItem(slides: Slide[]): Promise<void> {
     return new Promise((resolve, reject) => {
-      let idx = 0;
       if (Array.isArray(slides) && slides.length) {
-        this.carousel = this.slides.map(slide => {
-          idx++;
-          return {...slide, id: `s${idx}`, cssClass: this.defaultCssClass, isActive: false, animation:'' }});
+        this.carousel = [];
+        for(let i =0; i < slides.length; i++) {
+          const item = {...slides[i], id: `s${i}`, cssClass: this.defaultCssClass, isActive: false, animation:'' };
+          this.carousel.push(item);
+        }
         resolve();
       } else {
         reject();
@@ -70,7 +69,7 @@ export class NgxBasicCarouselComponent implements OnInit {
       this.currentElement = this.carousel[this.currentPosition];
       this.prevElement = this.currentPosition === 0 ? this.carousel[this.nbImages - 1] : this.carousel[this.currentPosition - 1]
       this.nextElement = this.currentPosition === this.nbImages - 1 ? this.carousel[0] : this.carousel[this.currentPosition + 1]
-      resolve({currentSlide: this.currentElement, prevSlide: this.prevElement, nextSlide: this.nextElement});
+      resolve({prevSlide: this.prevElement, currentSlide: this.currentElement, nextSlide: this.nextElement});
     });
   }
 
@@ -117,7 +116,7 @@ export class NgxBasicCarouselComponent implements OnInit {
   private async initCarouselState() {
     this.nbImages = this.carousel.length;
     if (this.nbImages > 0) {
-      const { currentSlide, prevSlide, nextSlide } = await this.sortElementPosition();
+      const {prevSlide, currentSlide, nextSlide} = await this.sortElementPosition();
       this.setupCssClass(prevSlide, currentSlide, nextSlide);
       this.onPlayCarousel();
     }
@@ -152,7 +151,7 @@ export class NgxBasicCarouselComponent implements OnInit {
    */
   private async updateAfterAnimation(newPosition: number): Promise<void> {
     this.currentPosition = newPosition;
-    const {currentSlide, prevSlide, nextSlide} = await this.sortElementPosition();
+    const {prevSlide, currentSlide, nextSlide} = await this.sortElementPosition();
     this.setupCssClass(prevSlide, currentSlide, nextSlide);
     this.isAnimation = false;
   }
@@ -244,6 +243,9 @@ export class NgxBasicCarouselComponent implements OnInit {
 
   // *********************** Open link in a new tab *********************************
   public openLinkInNewTab(url: string) {
-    // window?.open(url, '_blank').focus();
+    const windowObjectReference = window?.open(url, '_blank');
+    if (windowObjectReference) {
+      windowObjectReference.focus();
+    }
   }
 }
