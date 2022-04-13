@@ -1,24 +1,91 @@
 # NgxBasicCarousel
 
+---
+
+# About
+
+---
+
+
+
 This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.3.0.
 
-## Code scaffolding
+This is a package for a carousel on Angular..
 
-Run `ng generate component component-name --project ngx-basic-carousel` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project ngx-basic-carousel`.
-> Note: Don't forget to add `--project ngx-basic-carousel` or else it will be added to the default project in your `angular.json` file. 
 
-## Build
 
-Run `ng build ngx-basic-carousel` to build the project. The build artifacts will be stored in the `dist/` directory.
+---
 
-## Publishing
+## Install
 
-After building your library with `ng build ngx-basic-carousel`, go to the dist folder `cd dist/ngx-basic-carousel` and run `npm publish`.
+`npm install ngx-basic-carousel`
 
-## Running unit tests
+## Import
 
-Run `ng test ngx-basic-carousel` to execute the unit tests via [Karma](https://karma-runner.github.io).
+In your app.module.ts file
 
-## Further help
+```ts
+// ...
+import{ NgxBasicCarousel } from 'ngx-basic-carousel'
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+@NgModule({
+  // ...
+  imports: [
+    // ...
+    NgxBasicCarousel,
+    // ...
+  ]
+})
+export class AppModule {}
+```
+
+## Usage
+
+---
+
+```html
+<lib-ngx-basic-carousel></lib-ngx-basic-carousel>
+```
+
+### Attributes
+
+
+
+##### Basic options
+
+| Input    | Type       | Description                    | Default value |
+| -------- | ---------- | ------------------------------ | ------------- |
+| slides   | `Slide []` | An array of Slide              | `[ ]`         |
+| interval | `number`   | Loop interval in milliseconds. | `3000`        |
+| width    | `string`   | width value in `px`            | `650px`       |
+| height   | `string`   | height value in `px`           | `327px`       |
+
+exemple:
+
+```html
+<lib-ngx-basic-carousel [slides]="mySlides"
+                        [interval]="1000"
+                        width="1920px"
+                        height="1080px"></lib-ngx-basic-carousel>
+```
+
+
+
+##### Dots customisation
+
+| Input            | Type      | Description             | Default value |
+| ---------------- | --------- | ----------------------- | ------------- |
+| showDots         | `boolean` | Display dots navigation | `true`        |
+| activeDotColor   | `string`  | Active dot color        | `#000`        |
+| inactiveDotColor | `string`  | Inactive dot color      | `#fff`        |
+
+
+
+### Type reference
+
+```ts
+interface Slide {
+  image: string; // image url
+  targetLink: string;
+}
+```
