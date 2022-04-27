@@ -14,11 +14,11 @@ export class NgxBasicCarouselComponent implements OnInit {
   @Input('slides') slides: Slide[] = [];
   @Input('interval') interval: number = 3000;
   @Input('width') width: string = '650px';
-  @Input('height') height: string = '327px';
+  @Input('height') height: string = '326px';
 
   // Dots customisation
   @Input('showDots') showDots?: boolean = true;
-  @Input('activeDotColor') activeDotColor?: string = '#000'
+  @Input('activeDotColor') activeDotColor?: string = '#000'   
   @Input('inactiveDotColor') inactiveDotColor?: string = '#fff'
  
   public currentElement?: CarouselItem; // Current element
@@ -42,8 +42,11 @@ export class NgxBasicCarouselComponent implements OnInit {
     this.buildAndStart();
   }
 
-  // *********************** Transform Slide object to CarouselItem *********************************
-  
+  /**
+   * Transform Slide object provide by the user to CarouselItem
+   * @param slides - Array of slide object
+   * @returns - Void promise
+   */
   private transformSlidesToCarouselItem(slides: Slide[]): Promise<void> {
     return new Promise((resolve, reject) => {
       if (Array.isArray(slides) && slides.length) {
@@ -59,12 +62,15 @@ export class NgxBasicCarouselComponent implements OnInit {
     });
   }
 
+  // It is called in the ngonInit to build and launch the carousel
   private buildAndStart(): void {
     this.transformSlidesToCarouselItem(this.slides).then(() => this.initCarouselState());
   }
-
-  // *********************** Init and configure carousel *********************************
-  
+ 
+  /**
+   * Repositioning carousel item
+   * @returns - Promise with the prev, current and the next item
+   */
   public sortElementPosition(): Promise<{[key: string]: CarouselItem }> {
     return new Promise(resolve => {
       this.currentElement = this.carousel[this.currentPosition];
@@ -74,6 +80,12 @@ export class NgxBasicCarouselComponent implements OnInit {
     });
   }
 
+  /**
+   * Added a css class for each carousel item
+   * @param prevSlide - The prev item
+   * @param currentSlide - The current item
+   * @param nextSlide - The next item
+   */
   public setupCssClass(prevSlide: CarouselItem, currentSlide: CarouselItem, nextSlide: CarouselItem): void {
     this.carousel = this.carousel.map(item => {
       if(currentSlide && item.id === currentSlide.id) {
@@ -91,6 +103,10 @@ export class NgxBasicCarouselComponent implements OnInit {
     });
   }
 
+  /**
+   * Start carousel animation
+   * @param direction - Animation direction, by default next (next -> forward)
+   */
   private startCarousel(direction: string): void {
     if (!this.isAnimation) {
       this.isAnimation = true;
@@ -98,12 +114,14 @@ export class NgxBasicCarouselComponent implements OnInit {
     }
   }
 
+  // Play loop carousel
   public onPlayCarousel(): void {
     if (!this.intervalId) {
       this.intervalId = setInterval(() => this.startCarousel('next'), this.interval * this.nbImages);
     }
   }
 
+  // init carousel state (positioning and setup css class)
   private async initCarouselState(): Promise<void> {
     this.nbImages = this.carousel.length;
     if (this.nbImages > 0) {
@@ -113,8 +131,7 @@ export class NgxBasicCarouselComponent implements OnInit {
     }
   }
 
-  // *********************** Animation direction *********************************
-  // Next animation
+  // Forward animation
   public moveToNext(): void {
     if (this.currentPosition < this.nbImages - 1) {
       this.toLeftFromRight(this.currentPosition, this.currentPosition + 1)
@@ -125,7 +142,7 @@ export class NgxBasicCarouselComponent implements OnInit {
     }
   }
     
-  // Prev animation
+  // Rearward animation
   public moveToPrev(): void {
     if (this.currentPosition > 0) {
       this.toRightFromLeft(this.currentPosition, this.currentPosition - 1)
@@ -136,6 +153,10 @@ export class NgxBasicCarouselComponent implements OnInit {
     }
   }
     
+  /**
+   * Update carousel state
+   * @param newPosition - The new position
+   */
   private async updateAfterAnimation(newPosition: number): Promise<void> {
     this.currentPosition = newPosition;
     const {prevSlide, currentSlide, nextSlide} = await this.sortElementPosition();
@@ -143,14 +164,20 @@ export class NgxBasicCarouselComponent implements OnInit {
     this.isAnimation = false;
   }
     
-  // *********************** Animations *************************************
-     
+  /**
+   * Add css class animation (from the middle to the left) for the current item
+   * Add css class animation (from the right to the middle) for the next item
+   * @param currentPosition - current slide position
+   * @param nextPosition - next slide position
+   * @returns - void Pormise
+   */ 
   private async toLeftFromRight(currentPosition: number, nextPosition: number): Promise<void> {
     return new Promise((resolve) => {
       this.carousel[currentPosition] = { ...this.carousel[currentPosition], animation: 'to-left'};
       this.carousel[nextPosition] = { ...this.carousel[nextPosition], animation: 'from-right'}
       this.setDotsPosition(nextPosition);
     
+      // After the animation, we remove all css class animation
       this.timeoutId = setTimeout(() => {
         this.carousel[currentPosition].cssClass = `${this.defaultCssClass} prev-item`;
         this.carousel[currentPosition].animation = '';
@@ -161,6 +188,13 @@ export class NgxBasicCarouselComponent implements OnInit {
     });
   }
      
+  /**
+   * Add css class animation (from the middle to the right) for the current item
+   * Add css class animation (from the left to the middle) for the prev item
+   * @param currentPosition - current slide position
+   * @param prevPosition - prev slide position
+   * @returns - void promise
+   */
   private async toRightFromLeft(currentPosition: number, prevPosition: number): Promise<void> {
     return new Promise((resolve) => {
       this.carousel[currentPosition] = { ...this.carousel[currentPosition], animation: 'to-right'};
@@ -177,12 +211,16 @@ export class NgxBasicCarouselComponent implements OnInit {
     });
   }
      
-  // *********************** Dots controller events *********************************
+  /**
+   * Handle carousel animation with dots navigation
+   * @param targetPosition - Clicked dot position
+   */
   public async handleDotClick(targetPosition: number): Promise<void> {
     clearInterval(this.intervalId); // Stop current animation
     clearTimeout(this.timeoutId);
     this.isAnimation = true;
     
+    // If the target position is greater than the current position we use the 'next' animation
     if (this.dotPosition < targetPosition) {
       const prevPosition = (targetPosition === 0) ? this.nbImages - 1
                         : targetPosition === (this.nbImages - 1) ? 0 : targetPosition - 1;
@@ -197,6 +235,7 @@ export class NgxBasicCarouselComponent implements OnInit {
         this.onPlayCarousel();
       });
     
+    // If the target position is lower than the current position we use the 'prev' animation  
     } else if (this.dotPosition > targetPosition) {
       const nextPosition = targetPosition === (this.nbImages - 1) ? 0 : targetPosition + 1;
       const nextSlide = (nextPosition === targetPosition) || (nextPosition === this.dotPosition)
@@ -213,12 +252,20 @@ export class NgxBasicCarouselComponent implements OnInit {
       });
     }
   }
-    
+  
+  /**
+   * Set dots position
+   * @param position - The new position
+   */
   private setDotsPosition(position: number): void {
     this.dotPosition = position;
   }
 
   // *********************** Open link in a new tab *********************************
+  /**
+   * Open URL on new tab
+   * @param url - The target url
+   */
   public openLinkInNewTab(url: string): void {
     const windowObjectReference = window?.open(url, '_blank');
     if (windowObjectReference) {

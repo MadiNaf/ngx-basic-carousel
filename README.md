@@ -1,5 +1,7 @@
 # NgxBasicCarousel
 
+[![npm](https://img.shields.io/npm/v/ngx-basic-carousel?color=green)](https://www.npmjs.com/package/ngx-basic-carousel)
+
 # About
 
 This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.3.0.
@@ -41,10 +43,10 @@ export class AppModule {}
 
 | Input    | Type       | Description                      | Default value |
 | -------- | ---------- | -------------------------------- | ------------- |
-| slides   | `Slide []` | An array of [Slide](#slideType). | `[]`         |
+| slides   | `Slide []` | An array of [Slide](#slideType). | `[]`          |
 | interval | `number`   | Loop interval in milliseconds.   | `3000`        |
 | width    | `string`   | width value in `px`.             | `650px`       |
-| height   | `string`   | height value in `px`.            | `327px`       |
+| height   | `string`   | height value in `px`.            | `326px`       |
 
 example:
 
@@ -78,3 +80,15 @@ interface Slide {
 | ---------- | -------- | ------------------------------------------------------------------------------------------------ |
 | image      | `string` | Image url.                                                                                       |
 | targetLink | `string` | Redirection link if the slide is clickable, if there is no link the slide will not be clickable. |
+
+## Test the package locally
+
+Clone the package repo : ` git clone https://github.com/MadiNaf/ngx-basic-carousel ` .
+
+Build the package : ` ng build ngx-basic-carousel `.
+
+Create a symlink in your npm global  folder : ` npm link `.
+
+To verify that everything was done correctly, you can check whether the symlink for the package has been created using the following command: ` npm ls --depth=0 --link=true `.
+Now you need to create a new angular projet: ` ng new test-pkg `, go to the project folder and link your project with the package : ` npm link ngx-basic-carousel `.
+After that you can import and use the package like we do when we use `npm install` instead of `npm link`.
