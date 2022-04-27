@@ -1,6 +1,6 @@
 # NgxBasicCarousel
 
-![![npm](https://img.shields.io/npm/v/ngx-basic-carousel?color=green)](https://www.npmjs.com/package/ngx-basic-carousel)
+[![npm](https://img.shields.io/npm/v/ngx-basic-carousel?color=green)](https://www.npmjs.com/package/ngx-basic-carousel)
 
 # About
 
