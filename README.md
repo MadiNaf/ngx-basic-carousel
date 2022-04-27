@@ -1,6 +1,7 @@
 # NgxBasicCarousel
 
 [![npm](https://img.shields.io/npm/v/ngx-basic-carousel?color=green)](https://www.npmjs.com/package/ngx-basic-carousel)
+[![demo](https://img.shields.io/badge/demo-angular%20project-red)](https://demo-ngx-566qe7lxt-madinaf.vercel.app/)
 
 # About
 
