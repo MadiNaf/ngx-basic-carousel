@@ -47,7 +47,7 @@ export class NgxBasicCarouselComponent implements OnInit {
    * @param slides - Array of slide object
    * @returns - Void promise
    */
-  private transformSlidesToCarouselItem(slides: Slide[]): Promise<void> {
+  public transformSlidesToCarouselItem(slides: Slide[]): Promise<void> {
     return new Promise((resolve, reject) => {
       if (Array.isArray(slides) && slides.length) {
         this.carousel = [];
@@ -57,14 +57,16 @@ export class NgxBasicCarouselComponent implements OnInit {
         }
         resolve();
       } else {
-        reject();
+        reject('slide should be an array of Slide');
       }
     });
   }
 
   // It is called in the ngonInit to build and launch the carousel
   private buildAndStart(): void {
-    this.transformSlidesToCarouselItem(this.slides).then(() => this.initCarouselState());
+    this.transformSlidesToCarouselItem(this.slides)
+        .then(() => this.initCarouselState())
+        .catch((error) => { throw new Error(error) });
   }
  
   /**
