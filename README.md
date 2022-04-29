@@ -88,7 +88,7 @@ Clone the package repo : ` git clone https://github.com/MadiNaf/ngx-basic-carous
 
 Build the package : ` ng build ngx-basic-carousel `.
 
-Create a symlink in your npm global  folder : ` npm link `.
+Create a symlink in your npm global  folder, go to: `~/dist/ngx-basic-carousel` and run ` npm link `.
 
 To verify that everything was done correctly, you can check whether the symlink for the package has been created using the following command: ` npm ls --depth=0 --link=true `.
 Now you need to create a new angular projet: ` ng new test-pkg `, go to the project folder and link your project with the package : ` npm link ngx-basic-carousel `.
